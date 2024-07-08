@@ -31,7 +31,7 @@ async def total_user_train(
         )
 
 
-@total_user_predict_router.post("/predict-total-user")
+@total_user_predict_router.get("/predict-total-user")
 async def total_user_predict(
     request_form: TotalUserPredictRequestForm,
     total_user_predict_service: TotalUserPredictServiceImpl = Depends(
