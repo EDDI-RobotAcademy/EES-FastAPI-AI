@@ -4,36 +4,36 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, random_split
 
-from total_user_predict.repository.total_user_predict_repository_impl import (
-    TotalUserPredictRepositoryImpl,
+from date_info_predict.repository.date_info_predict_repository_impl import (
+    DateInfoPredictRepositoryImpl,
 )
-from total_user_predict.service.total_user_predict_service import (
-    TotalUserPredictService,
+from date_info_predict.service.date_info_predict_service import (
+    DateInfoPredictService,
 )
 
 
-class TotalUserPredictServiceImpl(TotalUserPredictService):
+class DateInfoPredictServiceImpl(DateInfoPredictService):
     DATASET_ROOT = "assets/dataset"
     MODEL_ROOT = "assets/model"
-    MODEL_NAME = "total_user_predict_model.pt"
+    MODEL_NAME = "date_info_predict_model.pt"
 
     DEVICE = "cpu"
     WINDOW_SIZE = 30
     VAL_RATIO = 0.2
     BATCH_SIZE = 64
     EPOCHS = 100
-    IN_FEATURES = 5
-    OUT_FEATURES = 5
+    IN_FEATURES = 9
+    OUT_FEATURES = 9
     HIDDEN_SIZE = 32
 
     def __init__(self):
-        self.total_user_predict_repository = TotalUserPredictRepositoryImpl()
+        self.date_info_predict_repository = DateInfoPredictRepositoryImpl()
 
-    def train_total_user(self):
-        dataset = self.total_user_predict_repository.load_data(
+    def train_date_info(self):
+        dataset = self.date_info_predict_repository.load_data(
             self.DATASET_ROOT, window_size=self.WINDOW_SIZE
         )
-        model = self.total_user_predict_repository.load_model(
+        model = self.date_info_predict_repository.load_model(
             self.IN_FEATURES, self.OUT_FEATURES, self.HIDDEN_SIZE
         )
 
@@ -51,7 +51,7 @@ class TotalUserPredictServiceImpl(TotalUserPredictService):
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
         criterion = nn.MSELoss()
 
-        trainer = self.total_user_predict_repository.load_trainer(
+        trainer = self.date_info_predict_repository.load_trainer(
             model=model,
             train_dataset_loader=train_loader,
             val_dataset_loader=val_loader,
@@ -63,18 +63,23 @@ class TotalUserPredictServiceImpl(TotalUserPredictService):
             device=self.DEVICE,
         )
 
-        self.total_user_predict_repository.train_model(trainer)
+        self.date_info_predict_repository.train_model(trainer)
 
-    def predict_total_user(self, n_days_after):
+    def predict_date_info(self, n_days_after, feature):
+        label_idx = {
+            "total_profit": -1,
+            "total_user": -2,
+        }
+        
         result = []
 
-        model = self.total_user_predict_repository.load_model(
+        model = self.date_info_predict_repository.load_model(
             self.IN_FEATURES,
             self.OUT_FEATURES,
             self.HIDDEN_SIZE,
             os.path.join(self.MODEL_ROOT, self.MODEL_NAME),
         )
-        dataset = self.total_user_predict_repository.load_data(
+        dataset = self.date_info_predict_repository.load_data(
             self.DATASET_ROOT, window_size=self.WINDOW_SIZE
         )
 
@@ -84,14 +89,14 @@ class TotalUserPredictServiceImpl(TotalUserPredictService):
         last_n_days = dataset[-1][0]
 
         for _ in range(num_iter):
-            predicted_n_days_after = self.total_user_predict_repository.predict(
+            predicted_n_days_after = self.date_info_predict_repository.predict(
                 model, last_n_days, self.DEVICE
             )
             reverse_scaled_predicted_n_days_after = (
-                self.total_user_predict_repository.reverse_scale_data(
+                self.date_info_predict_repository.reverse_scale_data(
                     predicted_n_days_after, dataset.min_features, dataset.max_features
                 ).astype("int")
-            )[:, -1].tolist()
+            )[:, label_idx[feature]].tolist()
 
             result += reverse_scaled_predicted_n_days_after
 

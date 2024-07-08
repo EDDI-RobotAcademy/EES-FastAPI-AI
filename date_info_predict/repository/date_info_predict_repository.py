@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class TotalUserPredictRepository(ABC):
+class DateInfoPredictRepository(ABC):
     @abstractmethod
     def load_data(self, csv_path, window_size):
         pass

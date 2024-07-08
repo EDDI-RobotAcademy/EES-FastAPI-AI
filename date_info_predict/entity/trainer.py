@@ -11,7 +11,7 @@ class EarlyStop:
         self.verbose = verbose
         self.delta = delta
         self.save_path = save_path
-        self.model_name = model_name if model_name else "total_user_predict_model.pt"
+        self.model_name = model_name if model_name else "date_info_predict_model.pt"
 
         self.counter = 0
         self.best_score = None
@@ -48,7 +48,7 @@ class EarlyStop:
             print("Saved model.")
 
 
-class WithdrawPredictTrainer:
+class DateInfoPredictTrainer:
     def __init__(
         self,
         model,

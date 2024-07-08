@@ -1,9 +1,9 @@
 import torch.nn as nn
 
 
-class WithdrawPredictModel(nn.Module):
-    def __init__(self, in_features=5, out_features=5, hidden_size=32):
-        super(WithdrawPredictModel, self).__init__()
+class DateInfoPredictModel(nn.Module):
+    def __init__(self, in_features=10, out_features=10, hidden_size=32):
+        super(DateInfoPredictModel, self).__init__()
 
         self.lstm = nn.LSTM(in_features, hidden_size, bidirectional=True)
         self.fc = nn.Linear(hidden_size * 2, 32)

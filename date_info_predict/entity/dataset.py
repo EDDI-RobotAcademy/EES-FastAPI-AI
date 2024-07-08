@@ -5,16 +5,16 @@ import torch
 from torch.utils.data import Dataset
 
 
-class WithdrawPredictDataset(Dataset):
+class DateInfoPredictDataset(Dataset):
     def __init__(self, root, normalize=False, window_size=30):
-        self.dataset = os.path.join(root, "total_user.csv")
+        self.dataset = os.path.join(root, "date_info.csv")
         self.normalize = normalize
         self.window_size = window_size
 
         self.inputs, self.targets = self._get_data()
 
     def _get_data(self):
-        dataset = pd.read_csv(self.dataset).drop("dates", axis=1).to_numpy()
+        dataset = pd.read_csv(self.dataset).drop("date", axis=1).to_numpy()
         self.min_features = dataset.min(axis=0)
         self.max_features = dataset.max(axis=0)
 

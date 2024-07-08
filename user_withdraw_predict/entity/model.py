@@ -2,7 +2,7 @@ import torch.nn as nn
 
 
 class UserWithdrawPredictModel(nn.Module):
-    def __init__(self, in_features=11, out_features=1, hidden_size=64):
+    def __init__(self, in_features=12, out_features=1, hidden_size=64):
         super(UserWithdrawPredictModel, self).__init__()
         self.fc1 = nn.Linear(in_features, hidden_size)
         self.relu = nn.ReLU()

@@ -1,19 +1,19 @@
 import torch
 
-from total_user_predict.entity.dataset import WithdrawPredictDataset
-from total_user_predict.entity.model import WithdrawPredictModel
-from total_user_predict.entity.trainer import WithdrawPredictTrainer
-from total_user_predict.repository.total_user_predict_repository import (
-    TotalUserPredictRepository,
+from date_info_predict.entity.dataset import DateInfoPredictDataset
+from date_info_predict.entity.model import DateInfoPredictModel
+from date_info_predict.entity.trainer import DateInfoPredictTrainer
+from date_info_predict.repository.date_info_predict_repository import (
+    DateInfoPredictRepository,
 )
 
 
-class TotalUserPredictRepositoryImpl(TotalUserPredictRepository):
+class DateInfoPredictRepositoryImpl(DateInfoPredictRepository):
     def load_data(self, csv_path, window_size):
-        return WithdrawPredictDataset(csv_path, normalize=True, window_size=window_size)
+        return DateInfoPredictDataset(csv_path, normalize=True, window_size=window_size)
 
     def load_model(self, in_features=5, out_features=5, hidden_size=32, ckpt_path=None):
-        model = WithdrawPredictModel(
+        model = DateInfoPredictModel(
             in_features=in_features, out_features=out_features, hidden_size=hidden_size
         )
         if ckpt_path:
@@ -37,7 +37,7 @@ class TotalUserPredictRepositoryImpl(TotalUserPredictRepository):
         model_name,
         device="cpu",
     ):
-        trainer = WithdrawPredictTrainer(
+        trainer = DateInfoPredictTrainer(
             model,
             train_dataset_loader,
             val_dataset_loader,
@@ -62,6 +62,6 @@ class TotalUserPredictRepositoryImpl(TotalUserPredictRepository):
         return predicted_n_days_after
 
     def reverse_scale_data(self, data, min_features, max_features):
-        return WithdrawPredictDataset.reverse_scale_data(
+        return DateInfoPredictDataset.reverse_scale_data(
             data, min_features, max_features
         )
