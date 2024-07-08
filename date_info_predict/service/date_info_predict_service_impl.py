@@ -67,7 +67,7 @@ class DateInfoPredictServiceImpl(DateInfoPredictService):
 
     def predict_date_info(self, n_days_after, feature):
         label_idx = {
-            "total_profit": -1,
+            "profit": -4,
             "total_user": -2,
         }
         

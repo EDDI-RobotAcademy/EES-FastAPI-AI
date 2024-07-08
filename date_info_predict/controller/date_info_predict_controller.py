@@ -52,7 +52,7 @@ async def total_user_predict(
         )
         
 
-@date_info_predict_router.get("/predict-total-profit")
+@date_info_predict_router.get("/predict-profit")
 async def total_profit_predict(
     request_form: DateInfoPredictRequestForm,
     date_info_predict_service: DateInfoPredictServiceImpl = Depends(
@@ -62,9 +62,9 @@ async def total_profit_predict(
     try:
         result = date_info_predict_service.predict_date_info(
             n_days_after=request_form.n_days,
-            feature='total_profit'
+            feature='profit'
         )
-        return JSONResponse(content={"predicted_total_profit": result})
+        return JSONResponse(content={"predicted_profit": result})
 
     except Exception as e:
         return JSONResponse(
