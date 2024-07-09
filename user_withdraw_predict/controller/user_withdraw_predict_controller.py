@@ -26,6 +26,7 @@ async def user_withdraw_train(
         return JSONResponse(content={"message": "Training completed"})
 
     except Exception as e:
+        raise Exception from e
         return JSONResponse(
             content={"error": str(e)}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
         )

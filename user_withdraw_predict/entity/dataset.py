@@ -6,6 +6,13 @@ from torch.utils.data import Dataset
 
 
 class UserWithdrawPredictDataset(Dataset):
+    WITHDRAW_REASONS = {
+    "SERVICE_DISSATISFACTION":1,
+    "LOW_USAGE":2,
+    "OTHER_SERVICE":3,
+    "PRIVACY_CONCERN":4,
+    "OTHER":5,
+}
     def __init__(self, root, normalize=False):
         self.dataset = os.path.join(root, "user_info.csv")
         self.normalize = normalize
@@ -19,6 +26,10 @@ class UserWithdrawPredictDataset(Dataset):
             "int"
         )
         dataset.withdraw = dataset.withdraw.astype("int")
+        dataset.withdraw_reason = dataset.withdraw_reason.fillna(0)
+        dataset.withdraw_reason = dataset.withdraw_reason.apply(
+            lambda x: self.WITHDRAW_REASONS[x] if x in self.WITHDRAW_REASONS else 0
+        ).astype('int')
 
         self.min_features = dataset.min(axis=0)
         self.max_features = dataset.max(axis=0)
