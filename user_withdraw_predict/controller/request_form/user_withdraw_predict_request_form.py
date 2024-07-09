@@ -12,4 +12,5 @@ class UserWithdrawPredictRequestForm(BaseModel):
     average_order_interval: int
     total_spent: int
     total_quantity: int
+    # withdraw_reason: int
     last_login_to_withdraw: int = 0

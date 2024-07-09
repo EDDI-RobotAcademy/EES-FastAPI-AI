@@ -19,8 +19,8 @@ class UserWithdrawPredictServiceImpl(UserWithdrawPredictService):
     DEVICE = "cpu"
     VAL_RATIO = 0.2
     BATCH_SIZE = 64
-    EPOCHS = 1000
-    IN_FEATURES = 12
+    EPOCHS = 100
+    IN_FEATURES = 11
     OUT_FEATURES = 1
     HIDDEN_SIZE = 64
 
@@ -76,7 +76,7 @@ class UserWithdrawPredictServiceImpl(UserWithdrawPredictService):
         scaled_data = self.user_withdraw_predict_repository.scale_data(
             data, dataset.min_features, dataset.max_features
         )
-        scaled_data = torch.tensor(scaled_data).float()
+        scaled_data = torch.tensor(scaled_data.to_numpy()).float()
         model = self.user_withdraw_predict_repository.load_model(
             in_features=self.IN_FEATURES,
             out_features=self.OUT_FEATURES,
