@@ -20,7 +20,7 @@ class UserWithdrawPredictServiceImpl(UserWithdrawPredictService):
     VAL_RATIO = 0.2
     BATCH_SIZE = 64
     EPOCHS = 1000
-    IN_FEATURES = 11
+    IN_FEATURES = 12
     OUT_FEATURES = 1
     HIDDEN_SIZE = 64
 
