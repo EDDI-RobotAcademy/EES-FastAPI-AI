@@ -5,15 +5,7 @@ import torch
 from torch.utils.data import Dataset
 
 
-class UserWithdrawPredictDataset(Dataset):
-    # WITHDRAW_REASONS = {
-    #     "SERVICE_DISSATISFACTION": 1,
-    #     "LOW_USAGE": 2,
-    #     "OTHER_SERVICE": 3,
-    #     "PRIVACY_CONCERN": 4,
-    #     "OTHER": 5,
-    # }
-
+class UserSpentPredictDataset(Dataset):
     def __init__(self, root, normalize=False):
         self.dataset = os.path.join(root, "user_info.csv")
         self.normalize = normalize
@@ -22,24 +14,25 @@ class UserWithdrawPredictDataset(Dataset):
 
     def _get_data(self):
         dataset = pd.read_csv(self.dataset)
-        dataset.last_login_to_withdraw = dataset.last_login_to_withdraw.fillna(0)
         dataset.gender = dataset.gender.apply(lambda x: 1 if x == "MALE" else 0).astype(
             "int"
         )
-        dataset.withdraw = dataset.withdraw.astype("int")
-        # dataset.withdraw_reason = dataset.withdraw_reason.fillna(0)
-        # dataset.withdraw_reason = dataset.withdraw_reason.apply(
-        #     lambda x: self.WITHDRAW_REASONS[x] if x in self.WITHDRAW_REASONS else 0
-        # ).astype('int')
         dataset.drop("withdraw_reason", axis=1, inplace=True)
+        dataset.drop('withdraw', axis=1, inplace=True)
+        dataset.drop('last_login_to_withdraw', axis=1, inplace=True)
+        dataset.drop('total_quantity', axis=1, inplace=True)
+        
         self.min_features = dataset.min(axis=0)
         self.max_features = dataset.max(axis=0)
+        
+        self.min_spent = dataset.total_spent.min()
+        self.max_spent = dataset.total_spent.max()
 
         if self.normalize:
             dataset = self.scale_data(dataset, self.min_features, self.max_features)
 
-        X = dataset.drop("withdraw", axis=1).to_numpy()
-        y = dataset.withdraw.to_numpy()
+        X = dataset.drop("total_spent", axis=1).to_numpy()
+        y = dataset.total_spent.to_numpy()
 
         return torch.tensor(X).float(), torch.tensor(y).unsqueeze(1).float()
 

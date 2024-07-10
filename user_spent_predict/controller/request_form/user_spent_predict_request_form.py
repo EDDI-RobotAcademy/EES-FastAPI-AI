@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class UserWithdrawPredictRequestForm(BaseModel):
+class UserSpentPredictRequestForm(BaseModel):
     gender: str
     birth_year: int
     num_logins: int
@@ -10,7 +10,3 @@ class UserWithdrawPredictRequestForm(BaseModel):
     member_maintenance: int
     num_orders: int
     average_order_interval: int
-    total_spent: int
-    total_quantity: int
-    # withdraw_reason: int
-    last_login_to_withdraw: int = 0

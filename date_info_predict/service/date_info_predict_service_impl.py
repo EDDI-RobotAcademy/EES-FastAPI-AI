@@ -21,7 +21,7 @@ class DateInfoPredictServiceImpl(DateInfoPredictService):
     WINDOW_SIZE = 30
     VAL_RATIO = 0.2
     BATCH_SIZE = 64
-    EPOCHS = 1000
+    EPOCHS = 100
     IN_FEATURES = 9
     OUT_FEATURES = 9
     HIDDEN_SIZE = 32
