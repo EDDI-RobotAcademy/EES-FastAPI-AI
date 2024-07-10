@@ -1,5 +1,6 @@
 import os
 import sys
+from dotenv import load_dotenv
 
 from regression.controller.views import regression_router
 from timeseries.controller.views import timeseries_router
@@ -13,6 +14,7 @@ from user_spent_predict.controller.user_spent_predict_controller import user_spe
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+load_dotenv()
 
 app = FastAPI()
 
