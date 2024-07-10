@@ -31,7 +31,7 @@ async def user_spent_train(
         )
 
 
-@user_spent_predict_router.get("/predict-user-spent")
+@user_spent_predict_router.post("/predict-user-spent")
 async def user_spent_predict(
     request_form: UserSpentPredictRequestForm,
     user_spent_predict_service: UserSpentPredictServiceImpl = Depends(

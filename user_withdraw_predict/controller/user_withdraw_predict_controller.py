@@ -31,7 +31,7 @@ async def user_withdraw_train(
         )
 
 
-@user_withdraw_predict_router.get("/predict-user-withdraw")
+@user_withdraw_predict_router.post("/predict-user-withdraw")
 async def user_withdraw_predict(
     request_form: UserWithdrawPredictRequestForm,
     user_withdraw_predict_service: UserWithdrawPredictServiceImpl = Depends(
