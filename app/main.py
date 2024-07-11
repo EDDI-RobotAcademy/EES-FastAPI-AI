@@ -2,8 +2,9 @@ import os
 import sys
 from dotenv import load_dotenv
 
-from regression.controller.views import regression_router
-from timeseries.controller.views import timeseries_router
+
+from regression.logistic_regression_controller import regression_router
+from timeseries.controller.timeseries_controller import timeseries_router
 
 sys.path.append('..')
 
@@ -28,6 +29,7 @@ app.include_router(user_info_router)
 
 app.include_router(timeseries_router)
 app.include_router(regression_router)
+
 
 allow_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
 
