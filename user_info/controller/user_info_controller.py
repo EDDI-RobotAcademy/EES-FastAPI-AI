@@ -23,5 +23,5 @@ async def user_info(
 
     except Exception as e:
         return JSONResponse(
-            content={"error": str(e)}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+            content={"error": str("이미 탈퇴한 고객입니다.")}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
