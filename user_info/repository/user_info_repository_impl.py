@@ -10,6 +10,7 @@ class UserInfoRepositoryImpl(UserInfoRepository):
         df = df[df['withdraw'] == False]
         df = df.drop(columns=['withdraw', 'withdraw_reason', 'last_login_to_withdraw'])
         keys = df.keys().to_list()
+        print(keys)
         df = df[df.index == account_id]
         df = df.iloc[0]
         if len(df) == 0:
