@@ -32,7 +32,7 @@ async def preferred_product_train(
         )
 
 
-@preferred_product_predict_router.get("/predict-preferred-product")
+@preferred_product_predict_router.post("/predict-preferred-product")
 async def preferred_product_predict(
     request_form: PreferredProductPredictRequestForm,
     preferred_product_predict_service: PreferredProductPredictServiceImpl = Depends(
