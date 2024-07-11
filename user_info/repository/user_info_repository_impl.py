@@ -6,11 +6,11 @@ from user_info.repository.user_info_repository import UserInfoRepository
 
 class UserInfoRepositoryImpl(UserInfoRepository):        
     def load_user_info(self, account_id: int):
+        account_id = account_id - 1
         df = pd.read_csv('assets/dataset/user_info.csv')
         df = df[df['withdraw'] == False]
         df = df.drop(columns=['withdraw', 'withdraw_reason', 'last_login_to_withdraw'])
         keys = df.keys().to_list()
-        print(keys)
         df = df[df.index == account_id]
         df = df.iloc[0]
         if len(df) == 0:

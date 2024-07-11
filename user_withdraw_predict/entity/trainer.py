@@ -72,7 +72,7 @@ class UserWithdrawPredictTrainer:
         self.device = device
 
         self.early_stop = EarlyStop(
-            patience=10, verbose=True, save_path=model_path, model_name=model_name
+            patience=20, verbose=True, save_path=model_path, model_name=model_name
         )
 
         self.train_losses = []

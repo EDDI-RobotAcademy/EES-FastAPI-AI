@@ -59,7 +59,7 @@ class UserSpentPredictRepositoryImpl(UserSpentPredictRepository):
         with torch.no_grad():
             data = data.to(device)
             pred = model(data)
-            expected_spent = pred.item() * 100
+            expected_spent = pred.item()
 
         return expected_spent
 

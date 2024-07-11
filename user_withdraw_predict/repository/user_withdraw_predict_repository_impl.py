@@ -63,7 +63,7 @@ class UserWithdrawPredictRepositoryImpl(UserWithdrawPredictRepository):
             pred = model(data)
             withdraw_prob = pred.item() * 100
             print(f"withdraw probability: {withdraw_prob:.2f}%")
-
+        print('pred', pred)
         withdraw = 1 if withdraw_prob >= 50 else 0
 
         return withdraw, withdraw_prob
