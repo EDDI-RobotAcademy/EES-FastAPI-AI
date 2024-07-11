@@ -21,7 +21,7 @@ class UserSpentPredictDataset(Dataset):
         dataset.drop('withdraw', axis=1, inplace=True)
         dataset.drop('last_login_to_withdraw', axis=1, inplace=True)
         dataset.drop('total_quantity', axis=1, inplace=True)
-        
+                
         self.min_features = dataset.min(axis=0)
         self.max_features = dataset.max(axis=0)
         

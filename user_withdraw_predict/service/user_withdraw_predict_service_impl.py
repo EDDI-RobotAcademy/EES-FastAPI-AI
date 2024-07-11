@@ -19,7 +19,7 @@ class UserWithdrawPredictServiceImpl(UserWithdrawPredictService):
     DEVICE = "cpu"
     VAL_RATIO = 0.2
     BATCH_SIZE = 64
-    EPOCHS = 100
+    EPOCHS = 1000
     IN_FEATURES = 11
     OUT_FEATURES = 1
     HIDDEN_SIZE = 64
