@@ -17,7 +17,7 @@ def logistic_regression_test():
     # 파일 경로 설정
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     print("★★★기본경로 : ", base_dir)
-    file_path = os.path.join(base_dir, 'assets', 'dataset', 'orders.csv')
+    file_path = os.path.join(base_dir, 'assets', 'dataset', 'order_info.csv')
 
     # CSV 파일 로드
     data = pd.read_csv(file_path)
