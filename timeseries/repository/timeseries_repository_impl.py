@@ -8,7 +8,7 @@ class TimeseriesRepositoryImpl(TimeseriesRepository):
     def __init__(self):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         self.date_info_path = os.path.join(base_dir, '../../assets/dataset/date_info.csv')
-        self.orders_path = os.path.join(base_dir, '../../assets/dataset/orders.csv')
+        self.orders_path = os.path.join(base_dir, '../../assets/dataset/order_info.csv')
         self.user_info_path = os.path.join(base_dir, '../../assets/dataset/user_info.csv')
 
     def load_data(self):
